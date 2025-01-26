@@ -23,8 +23,11 @@ function router(){
   }
 }
 
-// Function to navigate to a new view and store the current hash as the previous one
+// Function to navigate to a new view and store the current hash as the previous one and adding navigation animations
 function navigateTo(newHash,renderFunction) {
+  const topic = document.querySelector(".topic");
+  topic.classList.remove("animate"); 
+
   sessionStorage.setItem("previousHash", window.location.hash);
   window.location.hash = newHash;
   renderFunction();
@@ -34,17 +37,27 @@ function navigateTo(newHash,renderFunction) {
 
 
 
+
+
 // Function to render the initial screen
 function renderAccountTypeSelection() {
     const app = document.getElementById("onboard");
     app.innerHTML = `
       <div class= "info-con">
-        <div class= "back-btn">
+      <div class="btn-con">
+          <div class= "back-btn">
             <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M6.75539 15.2961L2.9591 11.4998M2.9591 11.4998L6.75539 7.70349M2.9591 11.4998L20.0424 11.4998" stroke="#1F201D" stroke-width="1.89815" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
 
-        </div>
+          </div>
+          <div class="theme-toggle">
+          
+          </div>
+
+      </div>
+  
+        <div class="page">
         <div class= "display-con">
          <p class="topic">What kind of Account suits you best?.</p>
          <div class="acct-con" id="individual">
@@ -76,6 +89,7 @@ function renderAccountTypeSelection() {
             </div>
          </div>
         </div>
+        </div>
 
      
       </div>
@@ -84,10 +98,18 @@ function renderAccountTypeSelection() {
     // Add event listeners to the account type buttons
     document.getElementById("individual").addEventListener("click", () => {
       navigateTo("individualDetails",renderDetailsForm)
+  
     });
     document.getElementById("business").addEventListener("click", () => {
       navigateTo("businessDetails",renderDetailsForm)
     });
+
+    setTimeout(() => {
+    
+      const topic = document.querySelector('.topic');
+      topic.classList.add('animate');
+  
+      }, 100);
   }
 
 
@@ -103,9 +125,10 @@ function renderDetailsForm(accountType) {
           </svg>
 
       </div>
+      
       <div class= "display-con form-input">
-       <p class="topic">Create your Individual account</p>
-       <p class="sub-topic">Let's get started on setting up your personal SwapMoney account.<p/>
+       <p class="topic" id="tp">Create your Individual account</p>
+       <p class="sub-topic" id="sub-tp">Let's get started on setting up your personal SwapMoney account.<p/>
        <div class = "input-con">
             <div class="country-flag-con">
                 <div id= "country-flag" >
@@ -137,6 +160,7 @@ function renderDetailsForm(accountType) {
         <p>Next</p>
       </div>
 
+
    
     </div>
   `;
@@ -151,6 +175,20 @@ function renderDetailsForm(accountType) {
     document.getElementById("back-bt").addEventListener("click", () => {
       navigateTo("",renderAccountTypeSelection)
     })
+      //Animating inputs field on page load and added a bit of timeout to delay the animation after the DOM must have been fully loaded
+  setTimeout(() => {
+    
+    const topic = document.querySelector('.topic');
+    topic.classList.add('animate');
+
+    const subtopic = document.querySelector('.sub-topic');
+    subtopic.classList.add('animate');
+
+    const inputCon = document.querySelector('.input-con');
+    inputCon.classList.add('animate');
+
+    }, 100); 
+
   }
 
   // Function to render the password form
@@ -165,10 +203,12 @@ function renderPasswordForm() {
           </svg>
 
       </div>
+     
+      <div class = "page">
       <div class= "display-con form-input">
        <p class="topic">Enter your Preferred Password</p>
        <p class="sub-topic">Create a strong password to keep your SwapMoney account safe.<p/>
-       <div class = "input-con">
+       <div class = "input-con-pass">
           <div class="input-wrapper">
             <input type="password" id="pass" placeholder="Enter Password">
             <span class="eye-icon" id="eye-icon-password">
@@ -190,13 +230,27 @@ function renderPasswordForm() {
       <div id="next-btn">
         <p>Next</p>
       </div>
-
+      </div>
    
     </div>
   `;
 
+  //Animating inputs field on page load and added a bit of timeout to delay the animation after the DOM must have been fully loaded
+  setTimeout(() => {
+    const inputs = document.querySelectorAll('.input-wrapper');
+    inputs.forEach(input => {
+        input.classList.add('animate');
+    });
+    const topic = document.querySelector('.topic');
+    topic.classList.add('animate');
+
+    const subtopic = document.querySelector('.sub-topic');
+    subtopic.classList.add('animate');
+
+    }, 100); 
+
+  //adding event listner to back button
   document.getElementById("back-bt").addEventListener("click", () => {
-   
   const previousHash = sessionStorage.getItem("previousHash");
   if (previousHash) {
     window.location.hash = previousHash;
@@ -212,7 +266,7 @@ function renderPasswordForm() {
 
   eyeIcon.addEventListener('click', () => togglePassword(passInput, eyeIcon,rePassInput));
  
-  }
+}
 
   //working with password toggle
   function togglePassword(passInput, icon, rePassInput) {
