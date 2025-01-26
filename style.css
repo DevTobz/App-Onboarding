@@ -4,15 +4,24 @@
     --Title-and-Body-Text:#1F201D;
     --Headline-Title: #3C3B6E;
     --Containers:#F4F4F4;
+    --SvgBtnFill:#1F201D;
+    --SvgIconFill:#3C3B6E;
+    --NextBtn: #3C3B6E;
+    --PassEye:#1F201D;
 
 
   }
   
   /* Dark mode */
-  [data-theme="dark"] {
-    --background-color: #121212;
-    --text-color: #f1f1f1;
-    --primary-color: #1a73e8;
+  html[data-theme="dark"] {
+    --SvgBtnFill:white;
+    --SvgIconFill:white;
+    --Background: #12152B;
+    --Title-and-Body-Text:#F1F1F1;
+    --Headline-Title: #ADACFF;
+    --Containers: rgba(60, 59, 110, 0.35);
+    --NextBtn:#3C3B6E;
+    --PassEye:#F1F1F1;
   }
   
 
@@ -65,6 +74,10 @@ body {
       display: flex;
       justify-content: center;
       align-items: center;
+    }
+
+    .back-btn path{
+      stroke: var(--SvgBtnFill);
     }
 
     .display-con{
@@ -130,6 +143,10 @@ body {
       display: flex;
       justify-content: center;
       align-items: center;
+      
+    }
+    .svg-con path{
+      stroke: var(--SvgIconFill);
     }
     .acct-title{
       color: var(--Title-and-Body-Text);
@@ -172,6 +189,12 @@ body {
       box-sizing: border-box;
       
     }
+    .eyes-open path{
+      stroke:var(--PassEye)
+    }
+    .eyes-open circle{
+      stroke:var(--PassEye)
+    }
     .country-flag-con{
       display:flex;
       gap: 1rem;
@@ -208,11 +231,16 @@ body {
      border: 5px solid #ffffff;
     }
 
+    .eye-icon path{
+      fill: var(--PassEye);
+
+    }
+
     #next-btn{
       margin-top: auto;
       width: 100%;
       height: 62px;
-      background-color: var(--Headline-Title);
+      background-color: var(--NextBtn);
       border-radius: 14px;
       font-family: 'Cera Pro Medium', sans-serif;
       display: flex;
@@ -285,6 +313,42 @@ body {
       cursor: pointer;
       font-size: 1.5rem; 
     }  
+
+    .btn-con{
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .theme-toggle{
+      height:41px;
+      width: 41px;
+      border-radius: 50%;
+      background-color: var(--Containers);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    
+
+    }
+    .light,.dark{
+      height: 20px;
+      width: 20px;
+    }
+
+   .theme-toggle svg:last-child{
+    display: none;
+   }
+
+   .dark .theme-toggle svg:first-child{
+    display: none;
+   }
+
+   .dark .theme-toggle svg:last-child{
+    display: block;
+    
+   }
+   
 
   }
 
