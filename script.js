@@ -1,3 +1,39 @@
+//Adding the routing functionality
+let previousHash = "";
+
+function router(){
+  const route = window.location.hash.split("#")[1];
+
+  if (!route) { 
+    renderAccountTypeSelection();
+    return;
+  }
+  switch (route) {
+    case "individualDetails":
+      renderDetailsForm("Individual");
+      break;
+    case "businessDetails":
+      renderDetailsForm("business");
+        break;
+    case "passwordForm":
+      renderPasswordForm();
+      break;
+    default:
+      renderAccountTypeSelection();
+  }
+}
+
+// Function to navigate to a new view and store the current hash as the previous one
+function navigateTo(newHash,renderFunction) {
+  sessionStorage.setItem("previousHash", window.location.hash);
+  window.location.hash = newHash;
+  renderFunction();
+
+}
+
+
+
+
 // Function to render the initial screen
 function renderAccountTypeSelection() {
     const app = document.getElementById("onboard");
@@ -47,20 +83,21 @@ function renderAccountTypeSelection() {
   
     // Add event listeners to the account type buttons
     document.getElementById("individual").addEventListener("click", () => {
-      renderDetailsForm("Individual");
+      navigateTo("individualDetails",renderDetailsForm)
     });
     document.getElementById("business").addEventListener("click", () => {
-      renderDetailsForm("business");
+      navigateTo("businessDetails",renderDetailsForm)
     });
   }
 
 
   // Function to render the details form
 function renderDetailsForm(accountType) {
+    previousHash = window.location.hash;
     const app = document.getElementById("onboard");
     app.innerHTML = `
     <div class= "info-con">
-      <div class= "back-btn">
+      <div class= "back-btn" id="back-bt">
           <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M6.75539 15.2961L2.9591 11.4998M2.9591 11.4998L6.75539 7.70349M2.9591 11.4998L20.0424 11.4998" stroke="#1F201D" stroke-width="1.89815" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
@@ -106,16 +143,23 @@ function renderDetailsForm(accountType) {
   
   
     document.getElementById("next-btn").addEventListener("click", () => {
-      renderPasswordForm(accountType);
+      navigateTo("passwordForm", renderPasswordForm);
+     
+      
     });
+
+    document.getElementById("back-bt").addEventListener("click", () => {
+      navigateTo("",renderAccountTypeSelection)
+    })
   }
 
   // Function to render the password form
-function renderPasswordForm(accountType) {
+function renderPasswordForm() {
+  previousHash = window.location.hash;
     const app = document.getElementById("onboard");
     app.innerHTML = `
     <div class= "info-con">
-      <div class= "back-btn">
+      <div class= "back-btn" id="back-bt">
           <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M6.75539 15.2961L2.9591 11.4998M2.9591 11.4998L6.75539 7.70349M2.9591 11.4998L20.0424 11.4998" stroke="#1F201D" stroke-width="1.89815" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
@@ -150,6 +194,18 @@ function renderPasswordForm(accountType) {
    
     </div>
   `;
+
+  document.getElementById("back-bt").addEventListener("click", () => {
+   
+  const previousHash = sessionStorage.getItem("previousHash");
+  if (previousHash) {
+    window.location.hash = previousHash;
+    router(); 
+  } else {
+    window.location.hash = ""; 
+    renderAccountTypeSelection();
+  }
+  });
   const passInput = document.getElementById('pass');
   const rePassInput = document.getElementById('repass');
   const eyeIcon = document.getElementById('eye-icon-password');
@@ -178,8 +234,15 @@ function renderPasswordForm(accountType) {
   }
 
 
+//Making sure window is listening to hash changes for navigation
+  window.addEventListener("hashchange", router);
+
   
   
   // Initialize the page by rendering the account type selection screen
   renderAccountTypeSelection();
+
+  //Initialize Router to handle navigation
+  router();
+
   
