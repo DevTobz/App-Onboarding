@@ -70,6 +70,7 @@ body {
       display: flex;
       justify-content: center;
       align-items: center;
+      cursor: pointer;
     }
 
     .back-btn path{
@@ -125,6 +126,7 @@ body {
       padding-left: 3rem;
       padding-right: 3rem;
       box-sizing: border-box;
+      cursor: pointer;
     }
     .acct-inner{
       display: flex;
@@ -246,6 +248,7 @@ body {
       line-height: 22px;
       color: #ffffff;
       font-weight: 500;
+      cursor: pointer;
 
     }
     .input-wrapper {
@@ -324,6 +327,7 @@ body {
       display: flex;
       justify-content: center;
       align-items: center;
+      cursor: pointer;
     
 
     }
