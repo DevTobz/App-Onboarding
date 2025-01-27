@@ -8,14 +8,15 @@
     --SvgIconFill:#3C3B6E;
     --NextBtn: #3C3B6E;
     --PassEye:#1F201D;
+    --FlagBorder:#ffffff;
 
 
   }
   
   /* Dark mode */
   html[data-theme="dark"] {
-    --SvgBtnFill:white;
-    --SvgIconFill:white;
+    --SvgBtnFill:#ffffff;
+    --SvgIconFill:#ffffff;
     --Background: #12152B;
     --Title-and-Body-Text:#F1F1F1;
     --Headline-Title: #ADACFF;
@@ -223,10 +224,14 @@ body {
       display: flex;
       justify-content: center;
       align-items: center;
-     width: 60%;
-     height: 60%;
+     width: 50%;
+     height: 50%;
      border-radius: 50%;
-     border: 5px solid #ffffff;
+     border: 4px solid #ffffff;
+    }
+    #flag svg{
+        width: 100%;
+        height: 100%;
     }
 
     .eye-icon path{
