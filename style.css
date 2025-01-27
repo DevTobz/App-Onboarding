@@ -356,6 +356,18 @@ body {
         width: 95%;
       }
   }
+  @media (min-width: 768px){
+    #onboard{
+        height: 100%;
+        width: 60%;
+    }
+    body{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    
+    }
+}
 
   @font-face {
     font-family: 'Cera Pro Bold';
